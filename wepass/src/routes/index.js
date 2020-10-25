@@ -10,11 +10,13 @@ import {
 import Login from "../pages/Login";
 import Presentation from "../pages/Presentation";
 import RegisterUser from "../pages/RegisterUser";
+import Home from "../pages/Home";
 
 const ROUTES = {
   PRESENTATION: "/",
   LOGIN: "/login",
   REGISTERUSER: "/registeruser",
+  HOME: "/home",
 };
 
 export default function Routes() {
@@ -24,6 +26,7 @@ export default function Routes() {
         <Route path={ROUTES.PRESENTATION} exact component={Presentation} />
         <Route path={ROUTES.LOGIN} component={Login} />
         <Route path={ROUTES.REGISTERUSER} component={RegisterUser} />
+        {/* <Route path={ROUTES.HOME} component={Home} /> */}
       </Switch>
     </BrowserRouter>
   );

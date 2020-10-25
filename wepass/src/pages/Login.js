@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { makeStyles, Paper, Typography, Grid } from "@material-ui/core";
-
 import { useHistory } from "react-router-dom";
 
-import Button from "../components/button/index";
+import api from "../services/api";
+
+import Input from "../components/input/index.js";
+import Button from "../components/button/index.js";
 
 const useStyles = makeStyles(() => ({
   parent: {
@@ -27,10 +29,28 @@ const useStyles = makeStyles(() => ({
 
 function Login() {
   const classes = useStyles();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   let history = useHistory();
   function Cadastrar() {
     history.push(`/registeruser`);
+  }
+  async function handleClickLogin() {
+    const data = {
+      email,
+      password,
+    };
+
+    console.table(data);
+    try {
+      const response = await api.post("/auth", data);
+
+      localStorage.setItem("token", response.data.token);
+      history.push(`/home`);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   }
 
   return (
@@ -41,18 +61,26 @@ function Login() {
             <p className="Titulo">
               <a>Logue com seu E-mail</a>
             </p>
-            <input className="Caixa" />
+            <Input
+              placeholder="Email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <Input
+              placeholder="senha"
+              value={password}
+              type="password"
+              onChange={(event) => setPassword(event.target.value)}
+            />
           </form>
 
-          <Button>
-            <a>logar</a>
-          </Button>
+          <Button onClick={() => handleClickLogin()}>logar</Button>
         </div>
       </div>
 
       <div className={classes.div2}>
         <p> Se não possui cadastro!</p>
-        <Button onClick={() => Cadastrar()}> Clique aqui</Button>
+        <Button onClick={() => Cadastrar()}> Clique aqui teste</Button>
       </div>
     </div>
   );

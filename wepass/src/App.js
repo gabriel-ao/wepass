@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className={classes.container}>
-      <Routes />;
+      <Routes />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { makeStyles, Paper, Typography, Grid } from "@material-ui/core";
 import logo_wepass from "../assets/wepass_final_fundo branco.png";
 
 import Button from "../components/button/index";
+import Header from "../components/header/index.js";
 
 const useStyles = makeStyles(() => ({
   // container: {
@@ -42,6 +43,8 @@ function Presentation() {
 
   return (
     <div className={classes.container}>
+      <Header />
+
       <div className={classes.parent}>
         <div className={classes.div2}>
           <img width="400" height="400" src={logo_wepass} />
@@ -49,7 +52,6 @@ function Presentation() {
 
         <div className={classes.div1}>
           <p>O WePass é um software com foco em aplicar estudos na prática!</p>
-          <Button onClick={() => Logar()}> Logar </Button>
         </div>
       </div>
     </div>
