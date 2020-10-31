@@ -5,26 +5,44 @@ import { useHistory } from "react-router-dom";
 import api from "../services/api";
 
 import Input from "../components/input/index.js";
-import Button from "../components/button/index.js";
+import login from "../assets/ilustrations/login/login.svg";
 
-const useStyles = makeStyles(() => ({
-  parent: {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gridTemplateRows: "repeat(3, 1fr)",
-    gridColumnGap: "0",
-    gridRowGap: "0",
+import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
+import TextField from "@material-ui/core/TextField";
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    height: "100vh",
   },
-
-  div1: {
-    gridArea: "1 / 2 / 2 / 3",
-    textAlign: "center",
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
   },
-
+  input: {
+    backgroundColor: "white",
+  },
   div2: {
-    gridArea: "5 / 3 / 6 / 4",
-    textAlign: "center",
+    gridArea: "1 / 2 / 2 / 3",
+    display: "flex",
+    flexDirection: "column",
+    // backgroundColor: "red",
   },
+  div3: { display: "flex", justifyContent: "center" },
+
+  login: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "50vh",
+    paddingTop: "50px",
+    // backgroundColor: "green",
+  },
+
+  cadastrar: { display: "flex", justifyContent: "center", height: "50vh" },
 }));
 
 function Login() {
@@ -54,35 +72,79 @@ function Login() {
   }
 
   return (
-    <div>
-      <div className={classes.parent}>
-        <div className={classes.div1}>
-          <form className="mainLogin">
-            <p className="Titulo">
-              <a>Logue com seu E-mail</a>
-            </p>
-            <Input
-              placeholder="Email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <Input
-              placeholder="senha"
-              value={password}
-              type="password"
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </form>
+    <Container maxWidth="sm-12" className={classes.container}>
+      <Grid item xs={3} className={classes.div2}></Grid>
 
-          <Button onClick={() => handleClickLogin()}>logar</Button>
+      <Grid item xs={6}>
+        <Grid item xs={12} className={classes.login}>
+          <img height="600" width="600" src={login} />
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          className={classes.div3}
+          style={{ paddingTop: "20px" }}
+        >
+          <TextField
+            className={classes.input}
+            required
+            id="outlined-required"
+            variant="outlined"
+            placeholder="Email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          className={classes.div3}
+          style={{ paddingTop: "10px" }}
+        >
+          <TextField
+            className={classes.input}
+            required
+            id="outlined-required"
+            variant="outlined"
+            placeholder="senha"
+            value={password}
+            type="password"
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          className={classes.div3}
+          style={{ paddingTop: "20px" }}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleClickLogin()}
+          >
+            logar
+          </Button>
+        </Grid>
+        <div>
+          <Grid item xs={12} className={classes.div3}>
+            <p> Se não possui cadastro!</p>
+          </Grid>
+
+          <Grid item xs={12} className={classes.div3}>
+            <Button style={{ color: "white" }} onClick={() => Cadastrar()}>
+              {" "}
+              Clique aqui
+            </Button>
+          </Grid>
         </div>
-      </div>
+      </Grid>
 
-      <div className={classes.div2}>
-        <p> Se não possui cadastro!</p>
-        <Button onClick={() => Cadastrar()}> Clique aqui teste</Button>
-      </div>
-    </div>
+      <Grid item xs={3} className={classes.div2}></Grid>
+    </Container>
   );
 }
 

@@ -4,58 +4,76 @@ import { useHistory } from "react-router-dom";
 import { makeStyles, Paper, Typography, Grid } from "@material-ui/core";
 // logo
 import logo_wepass from "../assets/wepass_final_fundo branco.png";
+import studynng from "../assets/ilustrations/studying/Programming-amico.svg";
 
 import Button from "../components/button/index";
 import Header from "../components/header/index.js";
 
+import Container from "@material-ui/core/Container";
+
 const useStyles = makeStyles(() => ({
-  // container: {
-  //   backgroundColor: "#6967da",
-  //   color: "#fff",
-  // },
-
-  parent: {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gridTemplateRows: "repeat(3, 1fr)",
-    gridColumnGap: "0",
-    gridRowGap: "0",
+  container: {
+    display: "flex",
+    flexDirection: "row",
   },
-
   div1: {
-    gridArea: "2 / 2 / 3 / 3",
-    textAlign: "center",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "88vh",
+    // backgroundColor: "green",
   },
-
   div2: {
     gridArea: "1 / 2 / 2 / 3",
-    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    // backgroundColor: "red",
+  },
+  div3: { display: "flex", justifyContent: "center" },
+
+  studying: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "50vh",
   },
 }));
 
 function Presentation() {
   const classes = useStyles();
 
-  let history = useHistory();
-  function Logar() {
-    history.push(`/login`);
-  }
-
   return (
-    <div className={classes.container}>
+    <>
       <Header />
+      <Container maxWidth="sm-12" className={classes.container}>
+        <Grid item xs={3} className={classes.div2}></Grid>
 
-      <div className={classes.parent}>
-        <div className={classes.div2}>
-          <img width="400" height="400" src={logo_wepass} />
-        </div>
+        <Grid item xs={6}>
+          <Grid item xs={12} className={classes.div1}>
+            <img height="300" width="400" src={logo_wepass} />
+          </Grid>
 
-        <div className={classes.div1}>
-          <p>O WePass é um software com foco em aplicar estudos na prática!</p>
-        </div>
-      </div>
-    </div>
+          {/* <Grid item xs={12} className={classes.studying}>
+            <img width="400" height="400" src={studynng} />
+          </Grid> */}
+          <Grid item xs={12} className={classes.div3}>
+            <p>
+              O WePass é um software com foco em aplicar estudos na prática!
+            </p>
+          </Grid>
+          {/* style={{ backgroundColor: "black", height: "100vh" }} */}
+        </Grid>
+
+        <Grid item xs={3} className={classes.div2}></Grid>
+      </Container>
+    </>
   );
 }
 
 export default Presentation;
+
+{
+  /* <a href="https://stories.freepik.com/web">
+    Illustration by Freepik Stories
+  </a> */
+}
