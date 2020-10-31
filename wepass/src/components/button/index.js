@@ -1,23 +1,41 @@
 import React from "react";
 import { makeStyles, Paper, Typography, Grid } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+// import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   purpleButton: {
-    background: "#fff",
-    color: "#6967da",
-    // fontSize: "30",
-    // borderRadius: "65",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
   },
 }));
+
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     "& > *": {
+//       margin: theme.spacing(1),
+//     },
+//   },
+// }));
 
 function Button({ children = "clique aqui", onClick }) {
   const classes = useStyles();
 
   return (
-    <button className={classes.purpleButton} onClick={() => onClick()}>
-      {children}
-    </button>
+    <div className={classes.root}>
+      <button
+        className={classes.purpleButton}
+        variant="contained"
+        color="primary"
+        onClick={() => onClick()}
+      >
+        {children}
+      </button>
+    </div>
+    // <Button variant="contained" color="primary">
+    //   Primary
+    // </Button>
   );
 }
 
