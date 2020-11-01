@@ -6,8 +6,8 @@ import { makeStyles, Paper, Typography, Grid } from "@material-ui/core";
 import logo_wepass from "../assets/wepass_final_fundo branco.png";
 import studynng from "../assets/ilustrations/studying/Programming-amico.svg";
 
-import Button from "../components/button/index";
-import Header from "../components/header/index.js";
+// import Button from "../components/button/index";
+import Button from "@material-ui/core/Button";
 
 import Container from "@material-ui/core/Container";
 
@@ -41,32 +41,39 @@ const useStyles = makeStyles(() => ({
 
 function Presentation() {
   const classes = useStyles();
+  let history = useHistory();
 
+  function handleClickLogin() {
+    history.push(`/login`);
+  }
   return (
-    <>
-      <Header />
-      <Container maxWidth="sm-12" className={classes.container}>
-        <Grid item xs={3} className={classes.div2}></Grid>
+    <Container maxWidth="sm-12" className={classes.container}>
+      <Grid item xs={3} className={classes.div2}></Grid>
 
-        <Grid item xs={6}>
-          <Grid item xs={12} className={classes.div1}>
-            <img height="300" width="400" src={logo_wepass} />
-          </Grid>
-
-          {/* <Grid item xs={12} className={classes.studying}>
-            <img width="400" height="400" src={studynng} />
-          </Grid> */}
-          <Grid item xs={12} className={classes.div3}>
-            <p>
-              O WePass é um software com foco em aplicar estudos na prática!
-            </p>
-          </Grid>
-          {/* style={{ backgroundColor: "black", height: "100vh" }} */}
+      <Grid item xs={6}>
+        <Grid item xs={12} className={classes.div1}>
+          <img height="300" width="400" src={logo_wepass} />
         </Grid>
 
-        <Grid item xs={3} className={classes.div2}></Grid>
-      </Container>
-    </>
+        {/* <Grid item xs={12} className={classes.studying}>
+            <img width="400" height="400" src={studynng} />
+          </Grid> */}
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => handleClickLogin()}
+        >
+          logar
+        </Button>
+        <Grid item xs={12} className={classes.div3}>
+          <p>O WePass é um software com foco em aplicar estudos na prática!</p>
+        </Grid>
+        {/* style={{ backgroundColor: "black", height: "100vh" }} */}
+      </Grid>
+
+      <Grid item xs={3} className={classes.div2}></Grid>
+    </Container>
   );
 }
 

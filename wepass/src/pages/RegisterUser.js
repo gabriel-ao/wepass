@@ -35,12 +35,10 @@ const useStyles = makeStyles((theme) => ({
   },
   div3: { display: "flex", justifyContent: "center" },
 
-  login: {
+  registerImage: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "50vh",
-    paddingTop: "50px",
     // backgroundColor: "green",
   },
 
