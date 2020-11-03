@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { makeStyles, Paper, Typography, Grid } from "@material-ui/core";
 // logo
 import logo_wepass from "../assets/wepass_final_fundo branco.png";
+import Carregamento from "../components/Carregamento";
 import studynng from "../assets/ilustrations/studying/Programming-amico.svg";
 
 // import Button from "../components/button/index";
@@ -45,6 +46,8 @@ function Presentation() {
   let history = useHistory();
 
   function handleClickLogin() {
+    // <Carregamento />;
+
     history.push(`/login`);
   }
   return (
