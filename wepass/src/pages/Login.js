@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
     flexDirection: "row",
-    height: "100vh",
+    height: "120vh",
   },
   root: {
     "& > *": {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     // backgroundColor: "red",
   },
-  div3: { display: "flex", justifyContent: "center" },
+  div3: { display: "flex", justifyContent: "center", paddingTop: "20px" },
 
   login: {
     display: "flex",
@@ -43,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
   },
 
   cadastrar: { display: "flex", justifyContent: "center", height: "50vh" },
+
+  dadosLogin: {
+    paddingTop: "60px",
+  },
 }));
 
 function Login() {
@@ -77,69 +81,72 @@ function Login() {
 
       <Grid item xs={6}>
         <Grid item xs={12} className={classes.login}>
-          <img height="600" width="600" src={login} />
+          <img height="500" width="600" src={login} />
         </Grid>
 
-        <Grid
-          item
-          xs={12}
-          className={classes.div3}
-          style={{ paddingTop: "20px" }}
-        >
-          <TextField
-            className={classes.input}
-            required
-            id="outlined-required"
-            variant="outlined"
-            placeholder="Email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </Grid>
-
-        <Grid
-          item
-          xs={12}
-          className={classes.div3}
-          style={{ paddingTop: "10px" }}
-        >
-          <TextField
-            className={classes.input}
-            required
-            id="outlined-required"
-            variant="outlined"
-            placeholder="senha"
-            value={password}
-            type="password"
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </Grid>
-
-        <Grid
-          item
-          xs={12}
-          className={classes.div3}
-          style={{ paddingTop: "20px" }}
-        >
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleClickLogin()}
+        <div className={classes.dadosLogin}>
+          <Grid
+            item
+            xs={12}
+            className={classes.div3}
+            // style={{ paddingTop: "20px" }}
           >
-            logar
-          </Button>
-        </Grid>
-        <div>
-          <Grid item xs={12} className={classes.div3}>
-            <p> Se não possui cadastro!</p>
+            <TextField
+              className={classes.input}
+              required
+              id="outlined-required"
+              variant="outlined"
+              placeholder="Email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
           </Grid>
 
+          <Grid
+            item
+            xs={12}
+            className={classes.div3}
+            // style={{ paddingTop: "10px" }}
+          >
+            <TextField
+              className={classes.input}
+              required
+              id="outlined-required"
+              variant="outlined"
+              placeholder="senha"
+              value={password}
+              type="password"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            className={classes.div3}
+            // style={{ paddingTop: "20px" }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleClickLogin()}
+            >
+              logar
+            </Button>
+          </Grid>
           <Grid item xs={12} className={classes.div3}>
+            <p> Se não possui cadastro!</p>
+            <Button style={{ color: "white" }} onClick={() => Cadastrar()}>
+              Clique aqui
+            </Button>
+          </Grid>
+
+          {/* <Grid item xs={12} className={classes.div3}>
             <Button style={{ color: "white" }} onClick={() => Cadastrar()}>
               {" "}
               Clique aqui
             </Button>
-          </Grid>
+          </Grid> */}
         </div>
       </Grid>
 
@@ -149,3 +156,5 @@ function Login() {
 }
 
 export default Login;
+
+// style={{ backgroundColor: "black" }}

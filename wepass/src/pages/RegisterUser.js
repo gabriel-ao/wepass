@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
     flexDirection: "row",
-    height: "120vh",
+    height: "130vh",
   },
   root: {
     "& > *": {
@@ -118,9 +118,10 @@ export default function RegisterUser() {
 
     <Container maxWidth="sm-12" className={classes.container}>
       <Grid item xs={3} className={classes.div2}></Grid>
+
       <Grid item xs={6}>
         <Grid item xs={12} className={classes.registerImage}>
-          <img height="600" width="600" src={registerImage} />
+          <img height="300" width="400" src={registerImage} />
         </Grid>
 
         <Grid item xs={12} className={classes.div3}>
@@ -288,3 +289,5 @@ export default function RegisterUser() {
     </Container>
   );
 }
+
+// style={{ backgroundColor: "black" }}

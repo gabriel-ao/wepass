@@ -15,12 +15,13 @@ const useStyles = makeStyles(() => ({
   container: {
     display: "flex",
     flexDirection: "row",
+    height: "100vh",
   },
   div1: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "88vh",
+    height: "80vh",
     // backgroundColor: "green",
   },
   div2: {
@@ -55,20 +56,24 @@ function Presentation() {
           <img height="300" width="400" src={logo_wepass} />
         </Grid>
 
-        {/* <Grid item xs={12} className={classes.studying}>
-            <img width="400" height="400" src={studynng} />
-          </Grid> */}
-
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => handleClickLogin()}
-        >
-          logar
-        </Button>
         <Grid item xs={12} className={classes.div3}>
           <p>O WePass é um software com foco em aplicar estudos na prática!</p>
         </Grid>
+
+        <Grid item xs={12} className={classes.div3}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleClickLogin()}
+          >
+            logar
+          </Button>
+        </Grid>
+
+        {/* <Grid item xs={12} className={classes.studying}>
+          <img width="400" height="400" src={studynng} />
+        </Grid> */}
+
         {/* style={{ backgroundColor: "black", height: "100vh" }} */}
       </Grid>
 
