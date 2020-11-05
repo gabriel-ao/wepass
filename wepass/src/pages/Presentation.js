@@ -12,6 +12,8 @@ import Button from "@material-ui/core/Button";
 
 import Container from "@material-ui/core/Container";
 
+import testIds from "../constants/test-ids";
+
 const useStyles = makeStyles(() => ({
   container: {
     display: "flex",
@@ -68,6 +70,7 @@ function Presentation() {
             variant="contained"
             color="primary"
             onClick={() => handleClickLogin()}
+            data-testid={testIds.BTN_LOGAR}
           >
             logar
           </Button>
@@ -85,10 +88,9 @@ function Presentation() {
   );
 }
 
-export default Presentation;
-
 {
   /* <a href="https://stories.freepik.com/web">
     Illustration by Freepik Stories
   </a> */
 }
+export default Presentation;
