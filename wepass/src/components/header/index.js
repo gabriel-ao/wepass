@@ -14,8 +14,10 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import PersonIcon from "@material-ui/icons/Person";
+import EventNoteIcon from "@material-ui/icons/EventNote";
+import HomeIcon from "@material-ui/icons/Home";
+import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles((theme) => ({
   buttonLogin: {
@@ -73,33 +75,53 @@ function Header({ children = "clique aqui", onClick }) {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+        {["Home"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {index % 2 === 0 ? <HomeIcon /> : <CloseIcon />}
             </ListItemIcon>
-            <ListItemText primary={text} />
+
+            <ListItemText primary={text} onClick={() => handleClickHome()} />
           </ListItem>
         ))}
       </List>
       <Divider />
       <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
+        {["Perfil"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {index % 2 === 0 ? <PersonIcon /> : <CloseIcon />}
             </ListItemIcon>
-            <ListItemText primary={text} />
+
+            <ListItemText primary={text} onClick={() => handleClickProfile()} />
           </ListItem>
         ))}
       </List>
+      <Divider />
+      <List>
+        {["Eventos"].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <EventNoteIcon /> : <CloseIcon />}
+            </ListItemIcon>
+            <ListItemText primary={text} onClick={() => handleClickEvents()} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
     </div>
   );
   // fim logica menu lateral
 
   let history = useHistory();
-  function Logar() {
-    history.push(`/login`);
+  function handleClickProfile() {
+    history.push(`/profile`);
+  }
+  function handleClickEvents() {
+    history.push(`/events`);
+  }
+  function handleClickHome() {
+    history.push(`/home`);
   }
   function handleLogout() {
     localStorage.removeItem("token");
