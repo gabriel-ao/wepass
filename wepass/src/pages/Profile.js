@@ -67,19 +67,29 @@ export default function Profile() {
     password,
   };
 
+  function modifyState(response) {
+    data.firstName = response.data.firstName;
+    setFirstName(data.firstName);
+    data.lastName = response.data.lastName;
+    setLastName(data.lastName);
+    data.roles = response.data.roles;
+    setRoles(data.roles);
+    data.email = response.data.email;
+    setEmail(data.email);
+  }
   async function handleUpdate() {
     const token = localStorage.getItem("token");
 
     try {
-      await api.put("/user", {
+      const response = await api.put("/user", data, {
         headers: { "x-access-token": token },
       });
+      modifyState(response);
       alert("Atualizado com sucesso");
     } catch (error) {
       alert(error.response.data.message);
     }
   }
-
   async function getData() {
     const token = localStorage.getItem("token");
 
@@ -88,14 +98,7 @@ export default function Profile() {
         headers: { "x-access-token": token },
       });
 
-      data.firstName = response.data.firstName;
-      setFirstName(data.firstName);
-      data.lastName = response.data.lastName;
-      setLastName(data.lastName);
-      data.roles = response.data.roles;
-      setRoles(data.roles);
-      data.email = response.data.email;
-      setEmail(data.email);
+      modifyState(response);
     } catch (error) {
       alert(error.response.data.message);
     }
@@ -197,7 +200,7 @@ export default function Profile() {
             />
           </Grid>
 
-          <Grid
+          {/* <Grid
             item
             xs={12}
             className={classes.div3}
@@ -219,7 +222,7 @@ export default function Profile() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
-          </Grid>
+          </Grid> */}
 
           <Grid
             item
