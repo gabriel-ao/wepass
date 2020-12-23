@@ -56,7 +56,7 @@ function Login() {
 
   let history = useHistory();
   function Cadastrar() {
-    history.push(`/registeruser`);
+    history.push(`/registerUser`);
   }
   async function handleClickLogin() {
     const data = {

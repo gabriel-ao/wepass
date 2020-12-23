@@ -55,7 +55,7 @@ export default function Profile() {
   const [lastName, setLastName] = useState("");
   const [roles, setRoles] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [password, setPassword] = useState("");
 
   let history = useHistory();
 
@@ -64,7 +64,7 @@ export default function Profile() {
     lastName,
     roles,
     email,
-    password,
+    // password,
   };
 
   function modifyState(response) {

@@ -82,9 +82,6 @@ export default function Profile() {
     setUserId(data.userId);
   }
 
-  function handleCreateEvents() {
-    history.push(`/registerEvent`);
-  }
   async function handleCreate() {
     const token = localStorage.getItem("token");
 
@@ -113,6 +110,7 @@ export default function Profile() {
       alert(error.response.data.message);
     }
   }
+
   async function getData() {
     const token = localStorage.getItem("token");
 
@@ -136,12 +134,110 @@ export default function Profile() {
       <Header />
 
       <Grid item xs={12} className={classes.div3}>
-        <p>Eventos</p>
+        <p>Evento</p>
       </Grid>
 
       <Container maxWidth="sm-12" className={classes.container}>
         <Grid item xs={3} className={classes.div2}></Grid>
         <Grid item xs={6}>
+          <TextField
+            className={classes.input}
+            id="filled-full-width"
+            label="Titulo"
+            style={{ margin: 8 }}
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="filled"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+          />
+
+          <TextField
+            className={classes.input}
+            id="filled-full-width"
+            label="Data do evento"
+            style={{ margin: 8 }}
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="filled"
+            value={dataEvent}
+            onChange={(event) => setDataEvent(event.target.value)}
+          />
+
+          <Grid
+            item
+            xs={12}
+            className={classes.div3}
+            style={{ paddingTop: "20px" }}
+          >
+            <TextField
+              className={classes.input}
+              id="filled-full-width"
+              label="Preço"
+              style={{ margin: 8 }}
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="filled"
+              value={price}
+              onChange={(event) => setPrice(event.target.value)}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            className={classes.div3}
+            style={{ paddingTop: "20px" }}
+          >
+            <TextField
+              className={classes.input}
+              id="filled-full-width"
+              label="Categoria"
+              style={{ margin: 8 }}
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="filled"
+              value={category}
+              onChange={(event) => setCategory(event.target.value)}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            className={classes.div3}
+            style={{ paddingTop: "20px" }}
+          >
+            <TextField
+              className={classes.input}
+              id="filled-full-width"
+              label="Descrição"
+              style={{ margin: 8 }}
+              // placeholder="Placeholder"
+              type="text"
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="filled"
+              value={describe}
+              onChange={(event) => setDescribe(event.target.value)}
+            />
+          </Grid>
+
           <Grid
             item
             xs={12}
@@ -151,9 +247,9 @@ export default function Profile() {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => handleCreateEvents()}
+              onClick={() => handleCreate()}
             >
-              Crie um evento
+              Salvar
             </Button>
           </Grid>
         </Grid>
