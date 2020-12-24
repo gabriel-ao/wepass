@@ -134,7 +134,7 @@ export default function Profile() {
       <Header />
 
       <Grid item xs={12} className={classes.div3}>
-        <p>Evento</p>
+        <p>Crie seu evento e conecte o máximo de pessoas</p>
       </Grid>
 
       <Container maxWidth="sm-12" className={classes.container}>
@@ -157,8 +157,10 @@ export default function Profile() {
 
           <TextField
             className={classes.input}
-            id="filled-full-width"
+            id="datetime-local"
             label="Data do evento"
+            type="datetime-local"
+            defaultValue="2020-12-25T10:00"
             style={{ margin: 8 }}
             fullWidth
             margin="normal"
@@ -170,73 +172,53 @@ export default function Profile() {
             onChange={(event) => setDataEvent(event.target.value)}
           />
 
-          <Grid
-            item
-            xs={12}
-            className={classes.div3}
-            style={{ paddingTop: "20px" }}
-          >
-            <TextField
-              className={classes.input}
-              id="filled-full-width"
-              label="Preço"
-              style={{ margin: 8 }}
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="filled"
-              value={price}
-              onChange={(event) => setPrice(event.target.value)}
-            />
-          </Grid>
+          <TextField
+            className={classes.input}
+            id="filled-full-width"
+            label="Preço"
+            style={{ margin: 8 }}
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="filled"
+            value={price}
+            onChange={(event) => setPrice(event.target.value)}
+          />
 
-          <Grid
-            item
-            xs={12}
-            className={classes.div3}
-            style={{ paddingTop: "20px" }}
-          >
-            <TextField
-              className={classes.input}
-              id="filled-full-width"
-              label="Categoria"
-              style={{ margin: 8 }}
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="filled"
-              value={category}
-              onChange={(event) => setCategory(event.target.value)}
-            />
-          </Grid>
+          <TextField
+            className={classes.input}
+            id="filled-full-width"
+            label="Categoria"
+            style={{ margin: 8 }}
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="filled"
+            value={category}
+            onChange={(event) => setCategory(event.target.value)}
+          />
 
-          <Grid
-            item
-            xs={12}
-            className={classes.div3}
-            style={{ paddingTop: "20px" }}
-          >
-            <TextField
-              className={classes.input}
-              id="filled-full-width"
-              label="Descrição"
-              style={{ margin: 8 }}
-              // placeholder="Placeholder"
-              type="text"
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="filled"
-              value={describe}
-              onChange={(event) => setDescribe(event.target.value)}
-            />
-          </Grid>
+          <TextField
+            className={classes.input}
+            id="filled-full-width"
+            label="Descrição"
+            style={{ margin: 8 }}
+            // placeholder="Placeholder"
+            type="text"
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="filled"
+            rowsMin={3}
+            value={describe}
+            onChange={(event) => setDescribe(event.target.value)}
+          />
 
           <Grid
             item
@@ -249,7 +231,7 @@ export default function Profile() {
               color="primary"
               onClick={() => handleCreate()}
             >
-              Salvar
+              Criar evento
             </Button>
           </Grid>
         </Grid>
