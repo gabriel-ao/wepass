@@ -90,7 +90,7 @@ export default function Profile() {
         headers: { "x-access-token": token },
       });
 
-      console.log("response event ==>", res);
+      history.push(`/events`);
       alert("Evento criado com sucesso");
     } catch (error) {
       alert(error.response.data.message);
@@ -110,24 +110,6 @@ export default function Profile() {
       alert(error.response.data.message);
     }
   }
-
-  async function getData() {
-    const token = localStorage.getItem("token");
-
-    try {
-      const response = await api.get("/user", {
-        headers: { "x-access-token": token },
-      });
-
-      modifyState(response);
-    } catch (error) {
-      alert(error.response.data.message);
-    }
-  }
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   return (
     <>

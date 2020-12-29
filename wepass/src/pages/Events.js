@@ -4,10 +4,70 @@ import { makeStyles, Paper, Typography, Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { withStyles } from "@material-ui/core/styles";
+import Switch from "@material-ui/core/Switch";
+
+import { Card, CardTitle, CardText } from "../components/card/index.js";
 
 import api from "../services/api";
 
 import Header from "../components/header/index.js";
+
+const IOSSwitch = withStyles((theme) => ({
+  root: {
+    width: 42,
+    height: 26,
+    padding: 0,
+    margin: theme.spacing(1),
+  },
+  switchBase: {
+    padding: 1,
+    "&$checked": {
+      transform: "translateX(16px)",
+      color: theme.palette.common.white,
+      "& + $track": {
+        backgroundColor: "#52d869",
+        opacity: 1,
+        border: "none",
+      },
+    },
+    "&$focusVisible $thumb": {
+      color: "#52d869",
+      border: "6px solid #fff",
+    },
+  },
+  thumb: {
+    width: 24,
+    height: 24,
+  },
+  track: {
+    borderRadius: 26 / 2,
+    border: `1px solid ${theme.palette.grey[400]}`,
+    backgroundColor: theme.palette.grey[50],
+    opacity: 1,
+    transition: theme.transitions.create(["background-color", "border"]),
+  },
+  checked: {},
+  focusVisible: {},
+}))(({ classes, ...props }) => {
+  return (
+    <Switch
+      focusVisibleClassName={classes.focusVisible}
+      disableRipple
+      classes={{
+        root: classes.root,
+        switchBase: classes.switchBase,
+        thumb: classes.thumb,
+        track: classes.track,
+        checked: classes.checked,
+      }}
+      {...props}
+    />
+  );
+});
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -58,7 +118,13 @@ export default function Profile() {
   const [category, setCategory] = useState("");
   const [describe, setDescribe] = useState("");
   const [userId, setUserId] = useState("");
+  const [state, setState] = React.useState({
+    checkedB: true,
+  });
 
+  const handleChangeState = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
   const data = {
     title,
     dataEvent,
@@ -92,8 +158,6 @@ export default function Profile() {
       const res = await api.post("/event", data, {
         headers: { "x-access-token": token },
       });
-
-      console.log("response event ==>", res);
       alert("Evento criado com sucesso");
     } catch (error) {
       alert(error.response.data.message);
@@ -117,7 +181,7 @@ export default function Profile() {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await api.get("/user", {
+      const response = await api.get("/event", {
         headers: { "x-access-token": token },
       });
 
@@ -156,6 +220,40 @@ export default function Profile() {
               Crie um evento
             </Button>
           </Grid>
+
+          <Card>
+            <CardTitle> Show do exalta samba </CardTitle>
+            <CardText>
+              show da banda exalta samba em campinas no chapeu brasil
+            </CardText>
+
+            <CardText>Data: 12/05/2021</CardText>
+            <CardTitle> R$50,00 </CardTitle>
+            <Button
+              variant="contained"
+              color="primary"
+              // onClick={() => handleCreateEvents()}
+            >
+              <EditIcon />
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              // onClick={() => handleCreateEvents()}
+            >
+              <DeleteIcon />
+            </Button>
+            <FormControlLabel
+              control={
+                <IOSSwitch
+                  checked={state.checked}
+                  onChange={handleChangeState}
+                  name="checkedB"
+                />
+              }
+              label="Disponivel"
+            />
+          </Card>
         </Grid>
         <Grid item xs={3} className={classes.div2}></Grid>
       </Container>
