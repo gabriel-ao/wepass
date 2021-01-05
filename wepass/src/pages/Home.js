@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import { makeStyles, Paper, Typography, Grid } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import { Card, CardTitle, CardText } from "../components/card/index.js";
 
 import api from "../services/api";
 
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     gridArea: "1 / 2 / 2 / 3",
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "red",
+    // backgroundColor: "red",
   },
   grid: {
     direction: "row",
@@ -39,9 +40,16 @@ function Login() {
   let history = useHistory();
   const classes = useStyles();
 
-  useEffect(() => {
-    getData();
-  }, []);
+  //States
+  const [events, setEvents] = useState([]);
+  const [title, setTitle] = useState("");
+  const [dataEvent, setDataEvent] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [describe, setDescribe] = useState("");
+  const [state, setState] = React.useState({
+    checkedB: true,
+  });
 
   function handleLogout() {
     localStorage.removeItem("token");
@@ -49,37 +57,65 @@ function Login() {
     history.push("/login");
   }
 
-  async function getData() {
+  async function getDataUser() {
     const token = localStorage.getItem("token");
     try {
       const response = await api.get("/user", {
         headers: { "x-access-token": token },
       });
       document.title = response.data.firstName;
-
-      alert(`ola ${response.data.firstName}`);
     } catch (error) {
       alert(error.response.data.message);
     }
   }
+
+  async function getDataEvent() {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await api.get("/events", {
+        headers: { "x-access-token": token },
+      });
+
+      modifyState(response);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  }
+
+  function HandleCreateCard(data) {
+    return (
+      <Card>
+        <CardTitle> {data.title} </CardTitle>
+        <CardText>{data.describe}</CardText>
+        <CardText>{data.dataEvent}</CardText>
+        <CardTitle> {data.price} </CardTitle>
+      </Card>
+    );
+  }
+
+  function modifyState(response) {
+    setEvents(response.data);
+  }
+
+  useEffect(() => {
+    getDataEvent();
+  }, []);
+
+  useEffect(() => {
+    getDataUser();
+  }, []);
 
   return (
     <>
       <Header />
 
       <Container maxWidth="sm-12" className={classes.container}>
-        <Grid item xs={3} className={classes.laterais}>
-          l
-        </Grid>
+        <Grid item xs={3} className={classes.laterais}></Grid>
         <Grid item xs={6}>
-          <div>
-            hello gabigol
-            <Button onClick={() => handleLogout()}> Logout </Button>
-          </div>
+          {events.map((event) => HandleCreateCard(event))}
         </Grid>
-        <Grid item xs={3} className={classes.laterais}>
-          l
-        </Grid>
+        <Grid item xs={3} className={classes.laterais}></Grid>
       </Container>
     </>
   );

@@ -107,17 +107,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Profile() {
+export default function Events() {
   const classes = useStyles();
   let history = useHistory();
 
   //States
+  const [events, setEvents] = useState([]);
   const [title, setTitle] = useState("");
   const [dataEvent, setDataEvent] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [describe, setDescribe] = useState("");
-  const [userId, setUserId] = useState("");
   const [state, setState] = React.useState({
     checkedB: true,
   });
@@ -125,40 +125,30 @@ export default function Profile() {
   const handleChangeState = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
+
   const data = {
     title,
     dataEvent,
     price,
     category,
     describe,
-    userId,
   };
+
   function modifyState(response) {
-    data.title = response.data.title;
-    setTitle(data.title);
-    data.dataEvent = response.data.dataEvent;
-    setDataEvent(data.dataEvent);
-    data.price = response.data.price;
-    setPrice(data.price);
-    data.category = response.data.category;
-    setCategory(data.category);
-    data.describe = response.data.describe;
-    setDescribe(data.describe);
-    data.userId = response.data.userId;
-    setUserId(data.userId);
+    setEvents(response.data);
   }
 
   function handleCreateEvents() {
     history.push(`/registerEvent`);
   }
-  async function handleCreate() {
-    const token = localStorage.getItem("token");
 
+  async function handleDeleteEvent(id) {
+    const token = localStorage.getItem("token");
     try {
-      const res = await api.post("/event", data, {
+      const res = await api.delete(`/event/${id}`, {
         headers: { "x-access-token": token },
       });
-      alert("Evento criado com sucesso");
+      getData();
     } catch (error) {
       alert(error.response.data.message);
     }
@@ -177,6 +167,7 @@ export default function Profile() {
       alert(error.response.data.message);
     }
   }
+
   async function getData() {
     const token = localStorage.getItem("token");
 
@@ -189,6 +180,41 @@ export default function Profile() {
     } catch (error) {
       alert(error.response.data.message);
     }
+  }
+
+  function HandleCreateCard(data) {
+    return (
+      <Card>
+        <CardTitle> {data.title} </CardTitle>
+        <CardText>{data.describe}</CardText>
+        <CardText>{data.dataEvent}</CardText>
+        <CardTitle> {data.price} </CardTitle>
+        <Button
+          variant="contained"
+          color="primary"
+          // onClick={() => handleCreateEvents()}
+        >
+          <EditIcon />
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => handleDeleteEvent(data.id)}
+        >
+          <DeleteIcon />
+        </Button>
+        <FormControlLabel
+          control={
+            <IOSSwitch
+              checked={state.checked}
+              onChange={handleChangeState}
+              name="checkedB"
+            />
+          }
+          label="Disponivel"
+        />
+      </Card>
+    );
   }
 
   useEffect(() => {
@@ -220,40 +246,7 @@ export default function Profile() {
               Crie um evento
             </Button>
           </Grid>
-
-          <Card>
-            <CardTitle> Show do exalta samba </CardTitle>
-            <CardText>
-              show da banda exalta samba em campinas no chapeu brasil
-            </CardText>
-
-            <CardText>Data: 12/05/2021</CardText>
-            <CardTitle> R$50,00 </CardTitle>
-            <Button
-              variant="contained"
-              color="primary"
-              // onClick={() => handleCreateEvents()}
-            >
-              <EditIcon />
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              // onClick={() => handleCreateEvents()}
-            >
-              <DeleteIcon />
-            </Button>
-            <FormControlLabel
-              control={
-                <IOSSwitch
-                  checked={state.checked}
-                  onChange={handleChangeState}
-                  name="checkedB"
-                />
-              }
-              label="Disponivel"
-            />
-          </Card>
+          {events.map((event) => HandleCreateCard(event))}
         </Grid>
         <Grid item xs={3} className={classes.div2}></Grid>
       </Container>

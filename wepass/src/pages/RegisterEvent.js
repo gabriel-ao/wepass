@@ -57,7 +57,6 @@ export default function Profile() {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [describe, setDescribe] = useState("");
-  const [userId, setUserId] = useState("");
 
   const data = {
     title,
@@ -65,7 +64,6 @@ export default function Profile() {
     price,
     category,
     describe,
-    userId,
   };
   function modifyState(response) {
     data.title = response.data.title;
@@ -78,13 +76,10 @@ export default function Profile() {
     setCategory(data.category);
     data.describe = response.data.describe;
     setDescribe(data.describe);
-    data.userId = response.data.userId;
-    setUserId(data.userId);
   }
 
   async function handleCreate() {
     const token = localStorage.getItem("token");
-
     try {
       const res = await api.post("/event", data, {
         headers: { "x-access-token": token },
