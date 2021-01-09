@@ -1,79 +1,32 @@
 import React, { Component, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles, Paper, Typography, Grid } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
-import TextField from "@material-ui/core/TextField";
+import {
+  makeStyles,
+  Paper,
+  Typography,
+  Grid,
+  Button,
+  Container,
+  TextField,
+  Card,
+  CardActions,
+  CardContent,
+} from "@material-ui/core";
+
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { withStyles } from "@material-ui/core/styles";
-import Switch from "@material-ui/core/Switch";
 
-import { Card, CardTitle, CardText } from "../components/card/index.js";
+// import { Card, CardTitle, CardText } from "../components/card/index.js";
 
 import api from "../services/api";
 
 import Header from "../components/header/index.js";
 
-const IOSSwitch = withStyles((theme) => ({
-  root: {
-    width: 42,
-    height: 26,
-    padding: 0,
-    margin: theme.spacing(1),
-  },
-  switchBase: {
-    padding: 1,
-    "&$checked": {
-      transform: "translateX(16px)",
-      color: theme.palette.common.white,
-      "& + $track": {
-        backgroundColor: "#52d869",
-        opacity: 1,
-        border: "none",
-      },
-    },
-    "&$focusVisible $thumb": {
-      color: "#52d869",
-      border: "6px solid #fff",
-    },
-  },
-  thumb: {
-    width: 24,
-    height: 24,
-  },
-  track: {
-    borderRadius: 26 / 2,
-    border: `1px solid ${theme.palette.grey[400]}`,
-    backgroundColor: theme.palette.grey[50],
-    opacity: 1,
-    transition: theme.transitions.create(["background-color", "border"]),
-  },
-  checked: {},
-  focusVisible: {},
-}))(({ classes, ...props }) => {
-  return (
-    <Switch
-      focusVisibleClassName={classes.focusVisible}
-      disableRipple
-      classes={{
-        root: classes.root,
-        switchBase: classes.switchBase,
-        thumb: classes.thumb,
-        track: classes.track,
-        checked: classes.checked,
-      }}
-      {...props}
-    />
-  );
-});
-
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
     flexDirection: "row",
-    height: "120vh",
+    height: "100vh",
   },
   root: {
     "& > *": {
@@ -83,27 +36,43 @@ const useStyles = makeStyles((theme) => ({
   input: {
     backgroundColor: "white",
   },
-  div2: {
+  laterais: {
     gridArea: "1 / 2 / 2 / 3",
     display: "flex",
     flexDirection: "column",
-    // backgroundColor: "red",
-  },
-  div3: { display: "flex", justifyContent: "center", paddingTop: "20px" },
-
-  login: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "50vh",
-    paddingTop: "50px",
     // backgroundColor: "green",
   },
+  div3: {
+    display: "flex",
+    justifyContent: "center",
+    paddingTop: "20px",
+    // backgroundColor: "purple",
+  },
 
-  cadastrar: { display: "flex", justifyContent: "center", height: "50vh" },
+  cards: {
+    height: 300,
+    width: 240,
+    color: "#474747",
+    background: "#fff",
+    boxShadow: "2px 2px 5px #000",
+    margin: 24,
+    borderRadius: 5,
+    fontSize: 18,
+    padding: 5,
+  },
 
-  dadosLogin: {
-    paddingTop: "60px",
+  allDiv: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    height: "24vh",
+    width: "48vw",
+    color: "#474747",
+    margin: 20,
+    borderRadius: 5,
+    fontSize: 18,
+    padding: 10,
+    // backgroundColor: "blue",
   },
 }));
 
@@ -118,13 +87,6 @@ export default function Events() {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [describe, setDescribe] = useState("");
-  const [state, setState] = React.useState({
-    checkedB: true,
-  });
-
-  const handleChangeState = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
 
   const data = {
     title,
@@ -184,35 +146,32 @@ export default function Events() {
 
   function HandleCreateCard(data) {
     return (
-      <Card>
-        <CardTitle> {data.title} </CardTitle>
-        <CardText>{data.describe}</CardText>
-        <CardText>{data.dataEvent}</CardText>
-        <CardTitle> {data.price} </CardTitle>
-        <Button
-          variant="contained"
-          color="primary"
-          // onClick={() => handleCreateEvents()}
-        >
-          <EditIcon />
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => handleDeleteEvent(data.id)}
-        >
-          <DeleteIcon />
-        </Button>
-        <FormControlLabel
-          control={
-            <IOSSwitch
-              checked={state.checked}
-              onChange={handleChangeState}
-              name="checkedB"
-            />
-          }
-          label="Disponivel"
-        />
+      <Card className={classes.cards}>
+        <CardContent>
+          <Typography> {data.title} </Typography>
+          <Typography>{data.describe}</Typography>
+          <Typography>{data.dataEvent}</Typography>
+          <Typography> {data.price} </Typography>
+          <CardActions>
+            <Button
+              variant="contained"
+              color="primary"
+              // onClick={() => handleCreateEvents()}
+            >
+              <EditIcon />
+            </Button>
+          </CardActions>
+
+          <CardActions>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleDeleteEvent(data.id)}
+            >
+              <DeleteIcon />
+            </Button>
+          </CardActions>
+        </CardContent>
       </Card>
     );
   }
@@ -230,7 +189,7 @@ export default function Events() {
       </Grid>
 
       <Container maxWidth="sm-12" className={classes.container}>
-        <Grid item xs={3} className={classes.div2}></Grid>
+        <Grid item xs={3} className={classes.laterais}></Grid>
         <Grid item xs={6}>
           <Grid
             item
@@ -246,9 +205,11 @@ export default function Events() {
               Crie um evento
             </Button>
           </Grid>
-          {events.map((event) => HandleCreateCard(event))}
+          <div className={classes.allDiv}>
+            {events.map((event) => HandleCreateCard(event))}
+          </div>
         </Grid>
-        <Grid item xs={3} className={classes.div2}></Grid>
+        <Grid item xs={3} className={classes.laterais}></Grid>
       </Container>
     </>
   );

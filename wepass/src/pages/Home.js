@@ -83,16 +83,16 @@ function Login() {
     }
   }
 
-  function HandleCreateCard(data) {
-    return (
-      <Card>
-        <CardTitle> {data.title} </CardTitle>
-        <CardText>{data.describe}</CardText>
-        <CardText>{data.dataEvent}</CardText>
-        <CardTitle> {data.price} </CardTitle>
-      </Card>
-    );
-  }
+  // function HandleCreateCard(data) {
+  //   return (
+  //     <Card>
+  //       <CardTitle> {data.title} </CardTitle>
+  //       <CardText>{data.describe}</CardText>
+  //       <CardText>{data.dataEvent}</CardText>
+  //       <CardTitle> {data.price} </CardTitle>
+  //     </Card>
+  //   );
+  // }
 
   function modifyState(response) {
     setEvents(response.data);
@@ -113,7 +113,7 @@ function Login() {
       <Container maxWidth="sm-12" className={classes.container}>
         <Grid item xs={3} className={classes.laterais}></Grid>
         <Grid item xs={6}>
-          {events.map((event) => HandleCreateCard(event))}
+          {/* {events.map((event) => HandleCreateCard(event))} */}
         </Grid>
         <Grid item xs={3} className={classes.laterais}></Grid>
       </Container>
