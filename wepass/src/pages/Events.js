@@ -42,14 +42,17 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     // backgroundColor: "green",
   },
-  div3: {
+  laterais: {
     display: "flex",
     justifyContent: "center",
     paddingTop: "20px",
+    minWidth: 20,
     // backgroundColor: "purple",
   },
 
   cards: {
+    minWidth: 275,
+
     height: 300,
     width: 240,
     color: "#474747",
@@ -64,15 +67,9 @@ const useStyles = makeStyles((theme) => ({
   allDiv: {
     display: "flex",
     flexDirection: "row",
-    flexWrap: "wrap",
-    height: "24vh",
-    width: "48vw",
-    color: "#474747",
     margin: 20,
-    borderRadius: 5,
-    fontSize: 18,
-    padding: 10,
-    // backgroundColor: "blue",
+    overflowY: "auto",
+    backgroundColor: "blue",
   },
 }));
 
@@ -184,7 +181,7 @@ export default function Events() {
     <>
       <Header />
 
-      <Grid item xs={12} className={classes.div3}>
+      <Grid item xs={12} className={classes.laterais}>
         <p>Eventos</p>
       </Grid>
 
@@ -194,7 +191,7 @@ export default function Events() {
           <Grid
             item
             xs={12}
-            className={classes.div3}
+            className={classes.laterais}
             style={{ paddingTop: "20px" }}
           >
             <Button
