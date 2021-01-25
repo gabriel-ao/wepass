@@ -99,12 +99,23 @@ function Header({ children = "clique aqui", onClick }) {
       </List>
       <Divider />
       <List>
-        {["Eventos"].map((text, index) => (
+        {["meus eventos"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {index % 2 === 0 ? <EventNoteIcon /> : <CloseIcon />}
             </ListItemIcon>
             <ListItemText primary={text} onClick={() => handleClickEvents()} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {["Criar evento"].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <EventNoteIcon /> : <CloseIcon />}
+            </ListItemIcon>
+            <ListItemText primary={text} onClick={() => handleCreateEvents()} />
           </ListItem>
         ))}
       </List>
@@ -120,6 +131,10 @@ function Header({ children = "clique aqui", onClick }) {
   function handleClickEvents() {
     history.push(`/events`);
   }
+  function handleCreateEvents() {
+    history.push(`/registerEvent`);
+  }
+
   function handleClickHome() {
     history.push(`/home`);
   }

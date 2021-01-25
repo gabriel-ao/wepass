@@ -6,6 +6,7 @@ import { makeStyles, Paper, Typography, Grid } from "@material-ui/core";
 const useStyles = makeStyles(() => ({
   container: {
     backgroundColor: "#6967da",
+    minHeight: "100%",
     color: "#fff",
   },
 }));

@@ -25,8 +25,9 @@ import Header from "../components/header/index.js";
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
+    justifyContent: "center",
     flexDirection: "row",
-    height: "100vh",
+
   },
   root: {
     "& > *": {
@@ -51,15 +52,14 @@ const useStyles = makeStyles((theme) => ({
   },
 
   cards: {
-    minWidth: 275,
+    minWidth: 266,
 
-    height: 300,
-    width: 240,
+
     color: "#474747",
     background: "#fff",
     boxShadow: "2px 2px 5px #000",
-    margin: 24,
-    borderRadius: 5,
+    margin: 10,
+    borderRadius: 8,
     fontSize: 18,
     padding: 5,
   },
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     margin: 20,
     overflowY: "auto",
-    backgroundColor: "blue",
+    // backgroundColor: "blue",
   },
 }));
 
@@ -173,6 +173,7 @@ export default function Events() {
     );
   }
 
+
   useEffect(() => {
     getData();
   }, []);
@@ -181,32 +182,30 @@ export default function Events() {
     <>
       <Header />
 
-      <Grid item xs={12} className={classes.laterais}>
-        <p>Eventos</p>
-      </Grid>
 
-      <Container maxWidth="sm-12" className={classes.container}>
-        <Grid item xs={3} className={classes.laterais}></Grid>
-        <Grid item xs={6}>
-          <Grid
-            item
-            xs={12}
-            className={classes.laterais}
-            style={{ paddingTop: "20px" }}
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleCreateEvents()}
-            >
-              Crie um evento
-            </Button>
-          </Grid>
+
+     
+
+      <Container className={classes.container}>
+
+        <Grid item xs={12}>
+          <p>Meus eventos</p>
+          
+          <div className={classes.allDiv}>
+            {
+            events.map((event) => HandleCreateCard(event))
+            }
+          </div>
+          <p>Conheça novos lugares sem sair de casa</p>
+          <div className={classes.allDiv}>
+            {events.map((event) => HandleCreateCard(event))}
+          </div>
+          <p>Conheça novos lugares sem sair de casa</p>
           <div className={classes.allDiv}>
             {events.map((event) => HandleCreateCard(event))}
           </div>
         </Grid>
-        <Grid item xs={3} className={classes.laterais}></Grid>
+
       </Container>
     </>
   );

@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import { makeStyles, Paper, Typography, Grid } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { Card, CardTitle, CardText } from "../components/card/index.js";
+import { Card, CardTitle, CardText } from "../components/Card/index.js";
 
 import api from "../services/api";
 
@@ -83,16 +83,16 @@ function Login() {
     }
   }
 
-  // function HandleCreateCard(data) {
-  //   return (
-  //     <Card>
-  //       <CardTitle> {data.title} </CardTitle>
-  //       <CardText>{data.describe}</CardText>
-  //       <CardText>{data.dataEvent}</CardText>
-  //       <CardTitle> {data.price} </CardTitle>
-  //     </Card>
-  //   );
-  // }
+  function HandleCreateCard(data) {
+    return (
+      <Card>
+        <CardTitle> {data.title} </CardTitle>
+        <CardText>{data.describe}</CardText>
+        <CardText>{data.dataEvent}</CardText>
+        <CardTitle> {data.price} </CardTitle>
+      </Card>
+    );
+  }
 
   function modifyState(response) {
     setEvents(response.data);

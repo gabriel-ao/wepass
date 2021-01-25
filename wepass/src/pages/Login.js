@@ -141,12 +141,6 @@ function Login() {
             </Button>
           </Grid>
 
-          {/* <Grid item xs={12} className={classes.div3}>
-            <Button style={{ color: "white" }} onClick={() => Cadastrar()}>
-              {" "}
-              Clique aqui
-            </Button>
-          </Grid> */}
         </div>
       </Grid>
 

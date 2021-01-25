@@ -12,8 +12,10 @@ import Header from "../components/header/index.js";
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
-    flexDirection: "row",
-    height: "120vh",
+    flexDirection: "column",
+    justifyContent: "center",
+    flex: 1,
+    // backgroundColor: "blue",
   },
   root: {
     "& > *": {
@@ -21,7 +23,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   input: {
+    borderRadius: 3,
     backgroundColor: "white",
+    
   },
   div2: {
     gridArea: "1 / 2 / 2 / 3",
@@ -116,130 +120,80 @@ export default function Profile() {
         <p>Perfil</p>
       </Grid>
 
-      <Container maxWidth="sm-12" className={classes.container}>
-        <Grid item xs={3} className={classes.div2}></Grid>
-        <Grid item xs={6}>
-          <Grid
-            item
-            xs={12}
-            className={classes.div3}
-            style={{ paddingTop: "10px" }}
-          >
-            <TextField
-              className={classes.input}
-              id="filled-full-width"
-              label="Primeiro nome"
-              style={{ margin: 8 }}
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="filled"
-              value={firstName}
-              onChange={(event) => setFirstName(event.target.value)}
-            />
+      <Container className={classes.container}>
 
-            <TextField
-              className={classes.input}
-              id="filled-full-width"
-              label="Segund nome"
-              style={{ margin: 8 }}
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="filled"
-              value={lastName}
-              onChange={(event) => setLastName(event.target.value)}
-            />
-          </Grid>
 
-          <Grid
-            item
-            xs={12}
-            className={classes.div3}
-            style={{ paddingTop: "20px" }}
-          >
-            <TextField
-              className={classes.input}
-              id="filled-full-width"
-              label="Roles"
-              style={{ margin: 8 }}
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="filled"
-              value={roles}
-              onChange={(event) => setRoles(event.target.value)}
-            />
-          </Grid>
 
-          <Grid
-            item
-            xs={12}
-            className={classes.div3}
-            style={{ paddingTop: "20px" }}
-          >
-            <TextField
-              className={classes.input}
-              id="filled-full-width"
-              label="Email"
-              style={{ margin: 8 }}
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="filled"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </Grid>
+          <TextField
+            className={classes.input}
+            id="filled-full-width"
+            label="Primeiro nome"
 
-          {/* <Grid
-            item
-            xs={12}
-            className={classes.div3}
-            style={{ paddingTop: "20px" }}
-          >
-            <TextField
-              className={classes.input}
-              id="filled-full-width"
-              label="password"
-              style={{ margin: 8 }}
-              // placeholder="Placeholder"
-              type="password"
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="filled"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </Grid> */}
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="filled"
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
+          />
 
-          <Grid
-            item
-            xs={12}
-            className={classes.div3}
-            style={{ paddingTop: "20px" }}
+          <TextField
+            className={classes.input}
+            id="filled-full-width"
+            label="Segund nome"
+
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="filled"
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
+          />
+          
+
+          <TextField
+            className={classes.input}
+            id="filled-full-width"
+            label="Roles"
+
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="filled"
+            value={roles}
+            onChange={(event) => setRoles(event.target.value)}
+          />
+
+          <TextField
+            className={classes.input}
+            id="filled-full-width"
+            label="Email"
+
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="filled"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+      
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleUpdate()}
           >
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleUpdate()}
-            >
-              Salvar
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid item xs={3} className={classes.div2}></Grid>
+            Salvar
+          </Button>
+
       </Container>
     </>
   );
