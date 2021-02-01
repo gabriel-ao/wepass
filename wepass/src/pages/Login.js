@@ -136,7 +136,7 @@ function Login() {
           </Grid>
           <Grid item xs={12} className={classes.div3}>
             <p> Se não possui cadastro!</p>
-            <Button style={{ color: "white" }} onClick={() => Cadastrar()}>
+            <Button style={{ color: "#6967da" }} onClick={() => Cadastrar()}>
               Clique aqui
             </Button>
           </Grid>

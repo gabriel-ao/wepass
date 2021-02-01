@@ -4,6 +4,7 @@ import { makeStyles, Paper, Typography, Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
+import MenuItem from '@material-ui/core/MenuItem';
 
 import api from "../services/api";
 
@@ -12,8 +13,10 @@ import Header from "../components/header/index.js";
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
-    flexDirection: "row",
-    height: "120vh",
+    flexDirection: "column",
+    justifyContent: "center",
+    flex: 1,
+    // backgroundColor: "blue",
   },
   root: {
     "& > *": {
@@ -55,8 +58,9 @@ export default function Profile() {
   const [title, setTitle] = useState("");
   const [dataEvent, setDataEvent] = useState("");
   const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
   const [describe, setDescribe] = useState("");
+  const [category, setCategory] = useState("");
+
 
   const data = {
     title,
@@ -65,6 +69,35 @@ export default function Profile() {
     category,
     describe,
   };
+
+  const currencies = [
+    {
+      value: 'Evento Online',
+      label: 'Evento Online',
+    },
+    {
+      value: 'Festas e shows',
+      label: 'Festas e shows',
+    },
+    {
+      value: 'Gastronomia',
+      label: 'Gastronomia',
+    },
+    {
+      value: 'free',
+      label: 'Grátis',
+    },
+    {
+      value: 'Outros',
+      label: 'Outros',
+    },
+  ];
+  // const [currency, setCurrency] = useState('Escolha uma categoria');
+
+  // const handleChange = (event) => {
+  //   setCurrency(event.target.value);
+  // };
+
   function modifyState(response) {
     data.title = response.data.title;
     setTitle(data.title);
@@ -114,14 +147,11 @@ export default function Profile() {
         <p>Crie seu evento e conecte o máximo de pessoas</p>
       </Grid>
 
-      <Container maxWidth="sm-12" className={classes.container}>
-        <Grid item xs={3} className={classes.div2}></Grid>
-        <Grid item xs={6}>
+      <Container className={classes.container}>
           <TextField
             className={classes.input}
             id="filled-full-width"
             label="Titulo"
-            style={{ margin: 8 }}
             fullWidth
             margin="normal"
             InputLabelProps={{
@@ -137,8 +167,7 @@ export default function Profile() {
             id="datetime-local"
             label="Data do evento"
             type="datetime-local"
-            defaultValue="2020-12-25T10:00"
-            style={{ margin: 8 }}
+            defaultValue="2021-12-25T10:00"
             fullWidth
             margin="normal"
             InputLabelProps={{
@@ -153,7 +182,6 @@ export default function Profile() {
             className={classes.input}
             id="filled-full-width"
             label="Preço"
-            style={{ margin: 8 }}
             fullWidth
             margin="normal"
             InputLabelProps={{
@@ -164,11 +192,10 @@ export default function Profile() {
             onChange={(event) => setPrice(event.target.value)}
           />
 
-          <TextField
+          {/* <TextField
             className={classes.input}
             id="filled-full-width"
             label="Categoria"
-            style={{ margin: 8 }}
             fullWidth
             margin="normal"
             InputLabelProps={{
@@ -177,14 +204,30 @@ export default function Profile() {
             variant="filled"
             value={category}
             onChange={(event) => setCategory(event.target.value)}
-          />
+          /> */}
+
+        <TextField
+          className={classes.input}
+          id="filled-select-currency"
+          select
+          label="Categoria"
+          value={category}
+          // onChange={handleChange}
+          onChange={(event) => setCategory(event.target.value)}
+          // helperText="Por favor escolha uma categoria"
+          variant="filled"
+        >
+          {currencies.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
 
           <TextField
             className={classes.input}
             id="filled-full-width"
             label="Descrição"
-            style={{ margin: 8 }}
-            // placeholder="Placeholder"
             type="text"
             fullWidth
             margin="normal"
@@ -196,23 +239,15 @@ export default function Profile() {
             value={describe}
             onChange={(event) => setDescribe(event.target.value)}
           />
-
-          <Grid
-            item
-            xs={12}
-            className={classes.div3}
-            style={{ paddingTop: "20px" }}
+          
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleCreate()}
           >
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleCreate()}
-            >
-              Criar evento
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid item xs={3} className={classes.div2}></Grid>
+            Criar evento
+          </Button>
+         
       </Container>
     </>
   );

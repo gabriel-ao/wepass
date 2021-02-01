@@ -14,6 +14,7 @@ import RegisterEvent from "../pages/RegisterEvent";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import Events from "../pages/Events";
+import Tickets from "../pages/Tickets";
 
 const ROUTES = {
   PRESENTATION: "/",
@@ -23,6 +24,7 @@ const ROUTES = {
   HOME: "/home",
   PROFILE: "/profile",
   EVENTS: "/events",
+  TICKETS: "/tickets",
 };
 
 export default function Routes() {
@@ -36,6 +38,8 @@ export default function Routes() {
         <Route path={ROUTES.HOME} component={Home} />
         <Route path={ROUTES.PROFILE} component={Profile} />
         <Route path={ROUTES.EVENTS} component={Events} />
+        <Route path={ROUTES.TICKETS} component={Tickets} />
+        
       </Switch>
     </BrowserRouter>
   );

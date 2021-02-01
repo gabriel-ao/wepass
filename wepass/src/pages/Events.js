@@ -43,25 +43,49 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     // backgroundColor: "green",
   },
-  laterais: {
+  message: {
     display: "flex",
     justifyContent: "center",
     paddingTop: "20px",
-    minWidth: 20,
-    // backgroundColor: "purple",
+    alignItems: "center",
+    fontSize: 18,
+    
+    [theme.breakpoints.up("sm")]: {
+      fontSize: 24,
+
+    },
   },
 
   cards: {
-    minWidth: 266,
-
+    minWidth: 120,
+    height: 104,
 
     color: "#474747",
     background: "#fff",
-    boxShadow: "2px 2px 5px #000",
+    backgroundColor: "#e9e9e9",
     margin: 10,
     borderRadius: 8,
     fontSize: 18,
     padding: 5,
+    cursor: "pointer",
+    transition: "background 0.2s",
+
+    "&:hover": {
+      backgroundColor:  "#ffffff",
+      boxShadow: "2px 2px 5px #949494",
+    },
+    
+    [theme.breakpoints.up("sm")]: {
+      minWidth: 226,
+      height: 210,
+
+    },
+
+    [theme.breakpoints.up("lg")]: {
+      minWidth: 266,
+      height: 250,
+
+    },
   },
 
   allDiv: {
@@ -69,7 +93,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     margin: 20,
     overflowY: "auto",
-    // backgroundColor: "blue",
+    
+    // "&::-webkit-scrollbar": {
+    //   display: "none",
+    // }
+
   },
 }));
 
@@ -181,28 +209,18 @@ export default function Events() {
   return (
     <>
       <Header />
-
-
-
-     
-
       <Container className={classes.container}>
 
         <Grid item xs={12}>
-          <p>Meus eventos</p>
-          
+
+          <p className={classes.message}>
+            {events  != 0 ? "Meus eventos "  : " Voce Ainda não tem eventos criados "}
+          </p>
+
           <div className={classes.allDiv}>
             {
             events.map((event) => HandleCreateCard(event))
             }
-          </div>
-          <p>Conheça novos lugares sem sair de casa</p>
-          <div className={classes.allDiv}>
-            {events.map((event) => HandleCreateCard(event))}
-          </div>
-          <p>Conheça novos lugares sem sair de casa</p>
-          <div className={classes.allDiv}>
-            {events.map((event) => HandleCreateCard(event))}
           </div>
         </Grid>
 

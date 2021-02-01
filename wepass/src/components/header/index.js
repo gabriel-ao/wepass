@@ -16,8 +16,15 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import PersonIcon from "@material-ui/icons/Person";
 import EventNoteIcon from "@material-ui/icons/EventNote";
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import HomeIcon from "@material-ui/icons/Home";
+import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import CloseIcon from "@material-ui/icons/Close";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+
+import logo_wepass from "../../assets/wepass_final_fundo branco.png";
+
 
 const useStyles = makeStyles((theme) => ({
   buttonLogin: {
@@ -76,50 +83,73 @@ function Header({ children = "clique aqui", onClick }) {
     >
       <List>
         {["Home"].map((text, index) => (
-          <ListItem button key={text}>
+          <ListItem button key={text} onClick={() => handleClickHome()}>
             <ListItemIcon>
               {index % 2 === 0 ? <HomeIcon /> : <CloseIcon />}
             </ListItemIcon>
 
-            <ListItemText primary={text} onClick={() => handleClickHome()} />
+            <ListItemText primary={text}/>
           </ListItem>
         ))}
       </List>
       <Divider />
       <List>
         {["Perfil"].map((text, index) => (
-          <ListItem button key={text}>
+          <ListItem button key={text} onClick={() => handleClickProfile()}>
             <ListItemIcon>
               {index % 2 === 0 ? <PersonIcon /> : <CloseIcon />}
             </ListItemIcon>
 
-            <ListItemText primary={text} onClick={() => handleClickProfile()} />
+            <ListItemText primary={text}/>
           </ListItem>
         ))}
       </List>
       <Divider />
       <List>
-        {["meus eventos"].map((text, index) => (
-          <ListItem button key={text}>
+        {["Meus ingressos"].map((text, index) => (
+          <ListItem button key={text} onClick={() => handleClickTicket()}>
             <ListItemIcon>
-              {index % 2 === 0 ? <EventNoteIcon /> : <CloseIcon />}
+              {index % 2 === 0 ? <ConfirmationNumberIcon /> : <CloseIcon />}
             </ListItemIcon>
-            <ListItemText primary={text} onClick={() => handleClickEvents()} />
+
+            <ListItemText primary={text}/>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+
+      <List>
+        {["Meus eventos"].map((text, index) => (
+          <ListItem button key={text} onClick={() => handleClickEvents()} >
+            <ListItemIcon>
+              {index % 2 === 0 ? <EventAvailableIcon /> : <CloseIcon />}
+            </ListItemIcon>
+            <ListItemText primary={text}/>
           </ListItem>
         ))}
       </List>
       <Divider />
       <List>
         {["Criar evento"].map((text, index) => (
-          <ListItem button key={text}>
+          <ListItem button key={text} onClick={() => handleCreateEvents()}>
             <ListItemIcon>
               {index % 2 === 0 ? <EventNoteIcon /> : <CloseIcon />}
             </ListItemIcon>
-            <ListItemText primary={text} onClick={() => handleCreateEvents()} />
+            <ListItemText primary={text}/>
           </ListItem>
         ))}
       </List>
       <Divider />
+      <List>
+        {["Sair"].map((text, index) => (
+          <ListItem button key={text} onClick={() => handleLogout()}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <ExitToAppIcon /> : <CloseIcon />}
+            </ListItemIcon>
+            <ListItemText primary={text}  />
+          </ListItem >
+        ))}
+      </List>
     </div>
   );
   // fim logica menu lateral
@@ -138,6 +168,9 @@ function Header({ children = "clique aqui", onClick }) {
   function handleClickHome() {
     history.push(`/home`);
   }
+  function handleClickTicket() {
+    history.push(`/tickets`);
+  }
   function handleLogout() {
     localStorage.removeItem("token");
     alert("Desconectado");
@@ -148,43 +181,37 @@ function Header({ children = "clique aqui", onClick }) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
-          {/* <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            News
-          </Typography> */}
+        <IconButton
+          edge="start"
+          className={classes.menuButton}
+          color="inherit"
+          aria-label="menu"
+        >
+          <img height="40" width="50" src={logo_wepass} onClick={() => handleClickHome()} />
+        </IconButton>
 
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            {["left"].map((anchor) => (
-              <React.Fragment key={anchor}>
-                <MenuIcon onClick={toggleDrawer(anchor, true)} />
-                {/* <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button> */}
-                <SwipeableDrawer
-                  anchor={anchor}
-                  open={state[anchor]}
-                  onClose={toggleDrawer(anchor, false)}
-                  onOpen={toggleDrawer(anchor, true)}
-                >
-                  {list(anchor)}
-                </SwipeableDrawer>
-              </React.Fragment>
-            ))}
-          </IconButton>
+        <IconButton
+          edge="start"
+          className={classes.menuButton}
+          color="inherit"
+          aria-label="menu"
+        >
+          {["right"].map((anchor) => (
+            <React.Fragment key={anchor}>
+              <MenuIcon onClick={toggleDrawer(anchor, true)} />
+              {/* <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button> */}
+              <SwipeableDrawer
+                anchor={anchor}
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+                onOpen={toggleDrawer(anchor, true)}
+              >
+                {list(anchor)}
+              </SwipeableDrawer>
+            </React.Fragment>
+          ))}
+        </IconButton>
 
-          <Button variant="contained" onClick={() => handleLogout()}>
-            Sair
-          </Button>
         </Toolbar>
       </AppBar>
     </div>

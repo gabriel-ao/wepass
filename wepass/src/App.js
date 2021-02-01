@@ -1,14 +1,15 @@
 import React from "react";
-import "./App.css";
 import Routes from "./routes/index";
-import { makeStyles, Paper, Typography, Grid } from "@material-ui/core";
+import { makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   container: {
-    backgroundColor: "#6967da",
+    backgroundColor: "#fff",
     minHeight: "100%",
-    color: "#fff",
+    color: "#6967da",
   },
+
+  
 }));
 
 function App() {

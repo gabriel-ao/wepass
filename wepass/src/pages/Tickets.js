@@ -1,17 +1,20 @@
 import React, { Component, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import {
   makeStyles,
-  Paper,
   Typography,
   Grid,
   Button,
   Container,
-  TextField,
   Card,
   CardActions,
   CardContent,
 } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+
+
 
 import api from "../services/api";
 
@@ -22,13 +25,34 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     flexDirection: "row",
+
   },
   root: {
     "& > *": {
       margin: theme.spacing(1),
     },
   },
+  input: {
+    backgroundColor: "white",
+  },
+  laterais: {
+    gridArea: "1 / 2 / 2 / 3",
+    display: "flex",
+    flexDirection: "column",
+    // backgroundColor: "green",
+  },
+  message: {
+    display: "flex",
+    justifyContent: "center",
+    paddingTop: "20px",
+    alignItems: "center",
+    fontSize: 18,
+    
+    [theme.breakpoints.up("sm")]: {
+      fontSize: 24,
 
+    },
+  },
 
   cards: {
     minWidth: 120,
@@ -48,7 +72,6 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor:  "#ffffff",
       boxShadow: "2px 2px 5px #949494",
     },
-
     
     [theme.breakpoints.up("sm")]: {
       minWidth: 226,
@@ -69,25 +92,16 @@ const useStyles = makeStyles((theme) => ({
     margin: 20,
     overflowY: "auto",
     
-    // backgroundColor: "blue",
-  },
+    // "&::-webkit-scrollbar": {
+    //   display: "none",
+    // }
 
-  laterais: {
-    gridArea: "1 / 2 / 2 / 3",
-    display: "flex",
-    flexDirection: "column",
-    // backgroundColor: "red",
   },
-  // grid: {
-  //   direction: "row",
-  //   justify: "center",
-  //   alignItems: "center",
-  // },
 }));
 
-function Home() {
-  let history = useHistory();
+export default function Tickets() {
   const classes = useStyles();
+  let history = useHistory();
 
   //States
   const [events, setEvents] = useState([]);
@@ -96,33 +110,54 @@ function Home() {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [describe, setDescribe] = useState("");
-  const [state, setState] = React.useState({
-    checkedB: true,
-  });
 
-  function handleLogout() {
-    localStorage.removeItem("token");
-    alert("Desconectado");
-    history.push("/login");
+  const data = {
+    title,
+    dataEvent,
+    price,
+    category,
+    describe,
+  };
+
+  function modifyState(response) {
+    setEvents(response.data);
   }
 
-  async function getDataUser() {
+  function handleCreateEvents() {
+    history.push(`/registerEvent`);
+  }
+
+  async function handleDeleteEvent(id) {
     const token = localStorage.getItem("token");
     try {
-      const response = await api.get("/user", {
+      const res = await api.delete(`/event/${id}`, {
         headers: { "x-access-token": token },
       });
-      document.title = response.data.firstName;
+      getData();
     } catch (error) {
       alert(error.response.data.message);
     }
   }
 
-  async function getDataEvent() {
+  async function handleUpdate() {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await api.get("/events", {
+      const response = await api.put("/user", data, {
+        headers: { "x-access-token": token },
+      });
+      modifyState(response);
+      alert("Atualizado com sucesso");
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  }
+
+  async function getData() {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await api.get("/event", {
         headers: { "x-access-token": token },
       });
 
@@ -140,48 +175,54 @@ function Home() {
           <Typography>{data.describe}</Typography>
           <Typography>{data.dataEvent}</Typography>
           <Typography> {data.price} </Typography>
+          <CardActions>
+            <Button
+              variant="contained"
+              color="primary"
+              // onClick={() => handleCreateEvents()}
+            >
+              <EditIcon />
+            </Button>
+          </CardActions>
+
+          <CardActions>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleDeleteEvent(data.id)}
+            >
+              <DeleteIcon />
+            </Button>
+          </CardActions>
         </CardContent>
       </Card>
     );
   }
 
-  function modifyState(response) {
-    setEvents(response.data);
-  }
 
   useEffect(() => {
-    getDataEvent();
-  }, []);
-
-  useEffect(() => {
-    getDataUser();
+    getData();
   }, []);
 
   return (
     <>
       <Header />
+      <Container className={classes.container}>
 
-      <Container  className={classes.container}>
         <Grid item xs={12}>
-        <p>Meus eventos</p>
-          
+
+          <p className={classes.message}>
+            {events  != 0 ? "Meus ingressos "  : " Voce ainda não tem ingressos "}
+          </p>
+
           <div className={classes.allDiv}>
             {
             events.map((event) => HandleCreateCard(event))
             }
           </div>
-          <p>Conheça novos lugares sem sair de casa</p>
-          <div className={classes.allDiv}>
-            {events.map((event) => HandleCreateCard(event))}
-          </div>
-          <p>Conheça novos lugares sem sair de casa</p>
-          <div className={classes.allDiv}>
-            {events.map((event) => HandleCreateCard(event))}
-          </div>
         </Grid>
+
       </Container>
     </>
   );
 }
-
-export default Home;
