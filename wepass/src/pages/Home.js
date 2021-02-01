@@ -1,46 +1,49 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { Component, useState, useEffect } from "react";
+// make styles
 import {
   makeStyles,
-  Paper,
-  Typography,
   Grid,
   Button,
   Container,
-  TextField,
   Card,
-  CardActions,
   CardContent,
+  Modal,
+  Backdrop,
+  Fade 
 } from "@material-ui/core";
+
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+
+
+// styled component
+import { Title, TextCard, ConfigurationButtons, DateCard } from "../components/Card/styles";
+
+
 import { useHistory } from "react-router-dom";
 
 import api from "../services/api";
 
 import Header from "../components/header/index.js";
-
+  
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
     justifyContent: "center",
     flexDirection: "row",
   },
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-
 
   cards: {
-    minWidth: 120,
-    height: 104,
+    minWidth: 160,
+    height: 140,
 
     color: "#474747",
     background: "#fff",
     backgroundColor: "#e9e9e9",
-    margin: 10,
+    margin: 5,
     borderRadius: 8,
     fontSize: 18,
-    padding: 5,
+    padding: 2,
     cursor: "pointer",
     transition: "background 0.2s",
 
@@ -48,17 +51,21 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor:  "#ffffff",
       boxShadow: "2px 2px 5px #949494",
     },
-
     
     [theme.breakpoints.up("sm")]: {
       minWidth: 226,
       height: 210,
+      margin: 10,
+      padding: 5,
+
 
     },
 
     [theme.breakpoints.up("lg")]: {
       minWidth: 266,
       height: 250,
+      margin: 10,
+      padding: 5,
 
     },
   },
@@ -66,23 +73,47 @@ const useStyles = makeStyles((theme) => ({
   allDiv: {
     display: "flex",
     flexDirection: "row",
-    margin: 20,
+    margin: 1,
     overflowY: "auto",
     
     // backgroundColor: "blue",
   },
 
-  laterais: {
-    gridArea: "1 / 2 / 2 / 3",
-    display: "flex",
-    flexDirection: "column",
-    // backgroundColor: "red",
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#6967da",
+    opacity: "0.2",
   },
-  // grid: {
-  //   direction: "row",
-  //   justify: "center",
-  //   alignItems: "center",
-  // },
+
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    height: 500,
+    width:  1280,
+    margin: 30,
+    marginTop: 40,
+    borderRadius: 8,
+
+    [theme.breakpoints.up("sm")]: {
+      height: 550,
+    },
+
+    [theme.breakpoints.up("md")]: {
+      height: 600,
+    },
+
+    [theme.breakpoints.up("lg")]: {
+      height: 650,
+    },
+
+    [theme.breakpoints.up("xl")]: {
+      height: 700,
+    },
+  },
 }));
 
 function Home() {
@@ -96,9 +127,17 @@ function Home() {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [describe, setDescribe] = useState("");
-  const [state, setState] = React.useState({
-    checkedB: true,
-  });
+
+  // modal
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   function handleLogout() {
     localStorage.removeItem("token");
@@ -135,12 +174,40 @@ function Home() {
   function HandleCreateCard(data) {
     return (
       <Card className={classes.cards}>
-        <CardContent>
-          <Typography> {data.title} </Typography>
-          <Typography>{data.describe}</Typography>
-          <Typography>{data.dataEvent}</Typography>
-          <Typography> {data.price} </Typography>
+        <CardContent >
+          <Title>{data.title}</Title>
+          <DateCard>{data.dataEvent}</DateCard>
+          <TextCard>{data.describe}</TextCard>
         </CardContent>
+        <ConfigurationButtons>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOpen}
+          >
+            <MoreHorizIcon />
+          </Button>
+
+          <Modal
+            aria-labelledby="spring-modal-title"
+            aria-describedby="spring-modal-description"
+            className={classes.modal}
+            open={open}
+            onClose={handleClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={open}>
+              <div className={classes.paper}>
+                <h2 id="spring-modal-title">Spring modal</h2>
+                <p id="spring-modal-description">react-spring animates me.</p>
+              </div>
+            </Fade>
+          </Modal>
+        </ConfigurationButtons>
       </Card>
     );
   }
@@ -167,7 +234,7 @@ function Home() {
           
           <div className={classes.allDiv}>
             {
-            events.map((event) => HandleCreateCard(event))
+            events.slice(0).reverse().map((event) => HandleCreateCard(event))
             }
           </div>
           <p>Conheça novos lugares sem sair de casa</p>
@@ -176,7 +243,7 @@ function Home() {
           </div>
           <p>Conheça novos lugares sem sair de casa</p>
           <div className={classes.allDiv}>
-            {events.map((event) => HandleCreateCard(event))}
+            {events.slice(0).reverse().map((event) => HandleCreateCard(event))}
           </div>
         </Grid>
       </Container>

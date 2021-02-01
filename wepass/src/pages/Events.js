@@ -1,22 +1,21 @@
 import React, { Component, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+
+// make styles
 import {
   makeStyles,
-  Paper,
-  Typography,
   Grid,
   Button,
   Container,
-  TextField,
   Card,
-  CardActions,
   CardContent,
 } from "@material-ui/core";
 
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-// import { Card, CardTitle, CardText } from "../components/card/index.js";
+// styled component
+import { Title, TextCard, ConfigurationButtons, DateCard } from "../components/Card/styles";
 
 import api from "../services/api";
 
@@ -37,13 +36,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     backgroundColor: "white",
   },
-  laterais: {
-    gridArea: "1 / 2 / 2 / 3",
-    display: "flex",
-    flexDirection: "column",
-    // backgroundColor: "green",
-  },
-  message: {
+  messagePage: {
     display: "flex",
     justifyContent: "center",
     paddingTop: "20px",
@@ -57,16 +50,16 @@ const useStyles = makeStyles((theme) => ({
   },
 
   cards: {
-    minWidth: 120,
-    height: 104,
+    minWidth: 160,
+    height: 140,
 
     color: "#474747",
     background: "#fff",
     backgroundColor: "#e9e9e9",
-    margin: 10,
+    margin: 5,
     borderRadius: 8,
     fontSize: 18,
-    padding: 5,
+    padding: 2,
     cursor: "pointer",
     transition: "background 0.2s",
 
@@ -78,12 +71,17 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       minWidth: 226,
       height: 210,
+      margin: 10,
+      padding: 5,
+
 
     },
 
     [theme.breakpoints.up("lg")]: {
       minWidth: 266,
       height: 250,
+      margin: 10,
+      padding: 5,
 
     },
   },
@@ -172,31 +170,28 @@ export default function Events() {
   function HandleCreateCard(data) {
     return (
       <Card className={classes.cards}>
-        <CardContent>
-          <Typography> {data.title} </Typography>
-          <Typography>{data.describe}</Typography>
-          <Typography>{data.dataEvent}</Typography>
-          <Typography> {data.price} </Typography>
-          <CardActions>
-            <Button
-              variant="contained"
-              color="primary"
-              // onClick={() => handleCreateEvents()}
-            >
-              <EditIcon />
-            </Button>
-          </CardActions>
-
-          <CardActions>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleDeleteEvent(data.id)}
-            >
-              <DeleteIcon />
-            </Button>
-          </CardActions>
+        <CardContent >
+          <Title>{data.title}</Title>
+          <TextCard>{data.describe}</TextCard>
+          <DateCard>{data.dataEvent}</DateCard>
         </CardContent>
+        <ConfigurationButtons>
+          <Button
+            variant="contained"
+            color="primary"
+            // onClick={() => handleCreateEvents()}
+          >
+            <EditIcon />
+          </Button>
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleDeleteEvent(data.id)}
+          >
+            <DeleteIcon />
+          </Button>
+        </ConfigurationButtons>
       </Card>
     );
   }
@@ -204,6 +199,7 @@ export default function Events() {
 
   useEffect(() => {
     getData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -213,14 +209,12 @@ export default function Events() {
 
         <Grid item xs={12}>
 
-          <p className={classes.message}>
+          <p className={classes.messagePage}>
             {events  != 0 ? "Meus eventos "  : " Voce Ainda não tem eventos criados "}
           </p>
 
           <div className={classes.allDiv}>
-            {
-            events.map((event) => HandleCreateCard(event))
-            }
+            {events.slice(0).reverse().map((event) => HandleCreateCard(event))}
           </div>
         </Grid>
 
