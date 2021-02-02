@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: "#6967da",
-    opacity: "0.2",
+    opacity: "0.3",
   },
 
   paper: {
@@ -171,12 +171,24 @@ function Home() {
     }
   }
 
+  function handleFormatDate(data){
+    // 2021-01-25T03:56:00.000Z  formatado dessa forma
+    var year  = data.split("-")[0];
+    var month  = data.split("-")[1];
+    var day  = data.split("-")[1];
+
+
+
+    return day + " / " + month + " / " + year
+  }
+
   function HandleCreateCard(data) {
+    const formatDate = handleFormatDate(data.dataEvent)
     return (
-      <Card className={classes.cards}>
+      <Card key={data.id} className={classes.cards}>
         <CardContent >
           <Title>{data.title}</Title>
-          <DateCard>{data.dataEvent}</DateCard>
+          <DateCard>{formatDate}</DateCard>
           <TextCard>{data.describe}</TextCard>
         </CardContent>
         <ConfigurationButtons>
@@ -199,11 +211,16 @@ function Home() {
             BackdropProps={{
               timeout: 500,
             }}
+            
           >
-            <Fade in={open}>
+            <Fade id={data.id}  in={open}>
               <div className={classes.paper}>
-                <h2 id="spring-modal-title">Spring modal</h2>
-                <p id="spring-modal-description">react-spring animates me.</p>
+                <h2 id="transition-modal-title">Transition modal</h2>
+                <p id="transition-modal-description">react-transition-group animates me.</p>
+                <Title>{data.title}</Title>
+                <DateCard>{data.dataEvent}</DateCard>
+                <TextCard>{data.describe}</TextCard>
+                
               </div>
             </Fade>
           </Modal>
@@ -230,8 +247,7 @@ function Home() {
 
       <Container  className={classes.container}>
         <Grid item xs={12}>
-        <p>Meus eventos</p>
-          
+          <p>Meus eventos</p>
           <div className={classes.allDiv}>
             {
             events.slice(0).reverse().map((event) => HandleCreateCard(event))
