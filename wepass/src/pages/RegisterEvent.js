@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   input: {
-    backgroundColor: "white",
+    // paddingTop: 10
   },
   div2: {
     gridArea: "1 / 2 / 2 / 3",
@@ -148,63 +148,19 @@ export default function Profile() {
       </Grid>
 
       <Container className={classes.container}>
-          <TextField
-            className={classes.input}
-            id="filled-full-width"
-            label="Titulo"
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="filled"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
-
-          <TextField
-            className={classes.input}
-            id="datetime-local"
-            label="Data do evento"
-            type="datetime-local"
-            defaultValue="2021-12-25T10:00"
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="filled"
-            value={dataEvent}
-            onChange={(event) => setDataEvent(event.target.value)}
-          />
-
-          <TextField
-            className={classes.input}
-            id="filled-full-width"
-            label="Preço"
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="filled"
-            value={price}
-            onChange={(event) => setPrice(event.target.value)}
-          />
-
-          {/* <TextField
-            className={classes.input}
-            id="filled-full-width"
-            label="Categoria"
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="filled"
-            value={category}
-            onChange={(event) => setCategory(event.target.value)}
-          /> */}
+        <TextField
+          className={classes.input}
+          id="filled-full-width"
+          label="Titulo"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="filled"
+          value={title}
+          onChange={(event) => setTitle(event.target.value)}
+        />
 
         <TextField
           className={classes.input}
@@ -224,29 +180,59 @@ export default function Profile() {
           ))}
         </TextField>
 
-          <TextField
-            className={classes.input}
-            id="filled-full-width"
-            label="Descrição"
-            type="text"
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="filled"
-            rowsMin={3}
-            value={describe}
-            onChange={(event) => setDescribe(event.target.value)}
-          />
+        <TextField
+          className={classes.input}
+          id="filled-full-width"
+          label="Preço"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="filled"
+          value={price}
+          onChange={(event) => setPrice(event.target.value)}
+        />
+
+        <TextField
+          className={classes.input}
+          id="filled-full-width"
+          label="Descrição"
+          type="text"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="filled"
+          rowsMin={3}
+          value={describe}
+          onChange={(event) => setDescribe(event.target.value)}
+        />
           
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleCreate()}
-          >
-            Criar evento
-          </Button>
+          <TextField
+          className={classes.input}
+          id="datetime-local"
+          label="Data do evento"
+          type="datetime-local"
+          defaultValue="2021-12-25T10:00"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="filled"
+          value={dataEvent}
+          onChange={(event) => setDataEvent(event.target.value)}
+        />
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => handleCreate()}
+        >
+          Criar evento
+        </Button>
          
       </Container>
     </>

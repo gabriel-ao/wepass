@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
   cards: {
     minWidth: 160,
+    maxWidth: 160,
     height: 140,
 
     color: "#474747",
@@ -69,7 +70,8 @@ const useStyles = makeStyles((theme) => ({
     },
     
     [theme.breakpoints.up("sm")]: {
-      minWidth: 226,
+      minWidth: 266,
+      maxWidth: 266,
       height: 210,
       margin: 10,
       padding: 5,
@@ -79,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
 
     [theme.breakpoints.up("lg")]: {
       minWidth: 266,
+      maxWidth: 266,
       height: 250,
       margin: 10,
       padding: 5,
